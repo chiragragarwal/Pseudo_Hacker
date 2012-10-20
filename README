@@ -1,0 +1,87 @@
+Author	: Chirag R. Agarwal
+ID		: chirag.agarwalr@gmail.com
+Problem	: Wanna be hacker
+Site	: http://agarwalchirag.wordpress.com
+
+FILES IN MY FOLDER :
+
+I have two separate folders. One for the program excuted using 'dup' command only and one for the 'pipe' command.
+
+==> Folder 1) dup/ :
+	1) dup_main.c :
+		It is the main driver file. It further forks all other processes.
+	
+	2) hack_dup.c :
+		It is the implementation file. It has the recursive function 'hack()' that does all the hacking you want.
+	
+	3) HEADER_DUP.h :
+		It is the header file that contains all the variable and function declarations.
+
+	4) check.c :
+		It has a function named 'check()' that does the 'ls' and 'grep' executions for every process. It creates two processes, one each for ls and grep. It creates two files 'ls_op.txt' and 'grep_op.txt'. Once the job is done, care has been taken to delete these files without leaving a single trace.
+	
+	5) Makefile :
+		The Makefile.
+
+==> Folder 2) pipes/ :
+	1) pipe_main.c :
+		It is the main driver file. It further forks all other processes.
+	
+	2) hack_pipe.c :
+		It is the implementation file. It has the recursive function 'hack()' that does all the hacking you want.
+	
+	3) HEADER_PIPE.h :
+		It is the header file that contains all the variable and function declarations.
+
+	5) Makefile :
+		The Makefile.
+
+----------------------------------------------------------------------------------------------
+
+HOW TO EXECUTE MY PROGRAM ?
+
+1) dup/ :
+	Simply in the dup/ folder, type 'make'
+	This will compile the process and create and executable named 'dup'
+
+	Now type './dup OS_Marks.txt 2009B4A7606G 42' to execute the program.
+	Above, I have mentioned a specific input. You can enter any filename, id and marks as required. 
+	Just make sure that the file you want to change exists in the 'Evaluator/' folder in the '/home/USER/' directory
+
+2) pipes/ :
+	Simply in the dup/ folder, type 'make'
+	This will compile the process and create and executable named 'pipe'
+
+	Now type './pipe OS_Marks.txt 2009B4A7606G 42' to execute the program.
+	Above, I have mentioned a specific input. You can enter any filename, id and marks as required. 
+	Just make sure that the file you want to change exists in the 'Evaluator/' folder in the '/home/USER/' directory
+
+If you do not enter the arguments, an appropriate error message is displayed on the terminal before exiting.
+Nothing is displayed on the terminal on execution as expected. The file to be modified can be check after execution to see the change.
+
+To clean all the extra files created by the program type "make clean" on the terminal.
+
+---------------------------------------------------------------------------------------------
+
+STRUCTURE :
+
+I have assumed that your machine has a '/home/USER/' directory which contains contains the user Student and the group 'Evaluator/'.
+Thus, I begin my execution from '/home/USER/Evaluator/'directory.
+
+You can change the 'USER' to 'user' if required in the main program. You can search for the line "strcpy(path,"/home/USER/Evaluator/");"
+
+Before executing the hack() function, I initialize the shared memory with a string "start".
+Every process will now check if the shared memory variable is "start" or not. If yes, then the required file is not found.
+If no, then it doesn't fork any other process and quits.
+
+If a process finds the required file, it appends the Current Path to the shared memory variable and exits.
+The main process then reads the path from the shared memory and makes changes to the file as desired.
+
+For pipe :
+I have created 3 pipes. 
+One to perform 'ls' and pipe to 'grep'.
+Other to pipe 'grep' output and read it.
+If 'grep' doesn't find the file, another pipe is used to perform 'ls' again and then call the function again for the sub-directories.
+
+NO FILES have been created when using 'pipes' unlike 'dup', as expected.
+
